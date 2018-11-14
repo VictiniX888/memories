@@ -9,9 +9,11 @@ import ktx.graphics.use
 
 class ScreenMainMenu(val game: Memories) : Screen {
 
-    private val camera = OrthographicCamera()
+    private var camera: OrthographicCamera
 
     init {
+
+        camera = OrthographicCamera()
         camera.setToOrtho(false, 800f, 480f)
     }
 
