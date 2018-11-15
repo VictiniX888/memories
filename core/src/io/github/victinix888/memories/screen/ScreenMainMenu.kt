@@ -1,6 +1,7 @@
 package io.github.victinix888.memories.screen
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -38,7 +39,7 @@ class ScreenMainMenu(val game: Memories) : Screen {
             game.font.draw(it, "Main Menu", 100f, 150f)
         }
 
-        if (Gdx.input.isTouched) {
+        if (Gdx.input.isTouched || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             game.screen = ScreenOverworld(game)
             dispose()
         }

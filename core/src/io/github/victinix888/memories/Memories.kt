@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import io.github.victinix888.memories.screen.ScreenMainMenu
+import io.github.victinix888.memories.screen.ScreenOverworld
 
 class Memories : Game() {
 
@@ -14,7 +15,7 @@ class Memories : Game() {
     override fun create() {
         batch = SpriteBatch()
         font = BitmapFont()
-        this.setScreen(ScreenMainMenu(this))
+        this.setScreen(ScreenOverworld(this))
     }
 
     override fun render() {
