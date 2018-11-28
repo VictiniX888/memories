@@ -9,8 +9,8 @@ object DesktopLauncher {
     fun main(arg: Array<String>) {
         val config = LwjglApplicationConfiguration()
         config.title = "Memories"
-        config.width = 800
-        config.height = 480
+        config.width = 900
+        config.height = 500
         LwjglApplication(Memories(), config)
     }
 }

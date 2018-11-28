@@ -25,7 +25,7 @@ class ScreenOverworld(val game: Memories) : Screen {
 
     //private var mapSprite: Sprite
     private var map: TiledMap
-    private var mapRenderer: TiledMapRenderer
+    private var mapRenderer: OrthogonalTiledMapRenderer
     private var playerSprite: Texture
     private var player: Rectangle
     private var camera: OrthographicCamera
