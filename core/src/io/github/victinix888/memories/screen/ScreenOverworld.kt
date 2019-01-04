@@ -15,6 +15,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Rectangle
 import io.github.victinix888.memories.Memories
+import io.github.victinix888.memories.coordinate.Direction
+import io.github.victinix888.memories.gamestate.GameState
 import io.github.victinix888.memories.map.loadMap
 import ktx.graphics.use
 
@@ -22,6 +24,8 @@ const val WORLD_WIDTH: Float = 32f  //size of world in tiles
 const val WORLD_HEIGHT: Float = 32f
 
 class ScreenOverworld(val game: Memories) : Screen {
+
+    var gameState: GameState
 
     //private var mapSprite: Sprite
     private var map: TiledMap
@@ -31,6 +35,8 @@ class ScreenOverworld(val game: Memories) : Screen {
     private var camera: OrthographicCamera
 
     init {
+
+        gameState = GameState()
         //mapSprite = Sprite(Texture(Gdx.files.internal("map.png")))
         //mapSprite.setPosition(0f, 0f)
         //mapSprite.setSize(WORLD_WIDTH, WORLD_HEIGHT)
@@ -88,16 +94,24 @@ class ScreenOverworld(val game: Memories) : Screen {
 
     private fun handleInput(delta: Float) {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            camera.translate(-4f*delta, 0f)
+            gameState.player.move(Direction.LEFT)
+            println(gameState.player.coords)
+            //camera.translate(-4f*delta, 0f)
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            camera.translate(4f*delta, 0f)
+            gameState.player.move(Direction.RIGHT)
+            println(gameState.player.coords)
+            //camera.translate(4f*delta, 0f)
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            camera.translate(0f, -4f*delta)
+            gameState.player.move(Direction.DOWN)
+            println(gameState.player.coords)
+            //camera.translate(0f, -4f*delta)
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            camera.translate(0f, 4f*delta)
+            gameState.player.move(Direction.UP)
+            println(gameState.player.coords)
+            //camera.translate(0f, 4f*delta)
         }
 
         //prevents camera moving out of bounds
