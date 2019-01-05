@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.Map
 import com.badlogic.gdx.maps.MapRenderer
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Rectangle
@@ -46,7 +47,7 @@ class ScreenOverworld(val game: Memories) : Screen {
 
         playerSprite = Texture(Gdx.files.internal("player.png"))
         //position player at bottom-left corner (this gets overriden in render()
-        player = Rectangle(0f, 0f, 1f, 1f)
+        player = Rectangle(gameState.player.coords.x.toFloat(), gameState.player.coords.y.toFloat(), 1f, 1f)
 
         val screenWidth: Float = Gdx.graphics.width.toFloat()   //in pixels
         val screenHeight: Float = Gdx.graphics.height.toFloat() //in pixels
@@ -76,9 +77,13 @@ class ScreenOverworld(val game: Memories) : Screen {
         // tell the SpriteBatch to render in the coordinate system specified by the camera.
         game.batch.projectionMatrix = camera.combined
 
-        //update player position, to position player at centre of camera
-        player.x = camera.position.x - (player.width / 2f)
-        player.y = camera.position.y - (player.height / 2f)
+        //update player position, to position player at centre of camera (not doing that now)
+        //player.x = camera.position.x - (player.width / 2f)
+        //player.y = camera.position.y - (player.height / 2f)
+
+        //update player position based on player coordinates in gamestate
+        player.x = gameState.player.coords.x.toFloat()
+        player.y = gameState.player.coords.y.toFloat()
 
         //clear screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
@@ -119,6 +124,10 @@ class ScreenOverworld(val game: Memories) : Screen {
         val viewportHeightCentre: Float = camera.viewportHeight / 2f
         camera.position.x = MathUtils.clamp(camera.position.x, viewportWidthCentre, WORLD_WIDTH - viewportWidthCentre)
         camera.position.y = MathUtils.clamp(camera.position.y, viewportHeightCentre, WORLD_HEIGHT - viewportHeightCentre)
+
+        //prevent player moving out of bounds
+        gameState.player.coords.x = MathUtils.clamp(gameState.player.coords.x.toFloat(), 0f, (map.layers[0] as TiledMapTileLayer).width.toFloat()).toInt()
+        gameState.player.coords.y = MathUtils.clamp(gameState.player.coords.y.toFloat(), 0f, (map.layers[0] as TiledMapTileLayer).height.toFloat()).toInt()
     }
 
     /** @see ApplicationListener.pause
